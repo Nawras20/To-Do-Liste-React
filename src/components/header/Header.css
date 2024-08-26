@@ -1,0 +1,16 @@
+#header {
+    background: #696969;
+}
+
+a.nav-link,
+a.nav-link:hover {
+    color: white;
+}
+
+a.nav-link:hover {
+    background-color: #9f9f9f;
+}
+
+a.nav-link:focus {
+    color: white;
+}
