@@ -4,8 +4,8 @@ import "./Header.css";
 
 function Header() {
     return (
-        <div id="header" className="container-fluid">
-            <header>
+        <header>
+            <div className="container-fluid">
                 <nav>
                     <ul className="nav mb-2 justify-content-center mb-md-0">
                         <li>
@@ -16,8 +16,8 @@ function Header() {
                         </li>
                     </ul>
                 </nav>
-            </header>
-        </div>
+            </div>
+        </header>
     );
 }
 

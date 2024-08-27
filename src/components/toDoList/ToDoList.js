@@ -8,7 +8,7 @@ function ToDoList() {
     var [selectedIndexToEdit, setSelectedIndexToEdit] = useState('');
     var [modalText, setModalText] = useState('');
     var btnDeleteAllDisabled = false;
-    
+
     if (lsTodos === null) {
         lsTodos = [];
         setLocalStorage([]);
@@ -40,7 +40,7 @@ function ToDoList() {
     function setLocalStorage(value) {
         localStorage.setItem("todos", JSON.stringify(value));
     }
-    
+
     function createNewTask() {
         if (newTaskValue != "") {
             var tasks = getLocalStorage()
@@ -82,7 +82,6 @@ function ToDoList() {
     function editTask() {
         const tasks = getLocalStorage();
         tasks[selectedIndexToEdit].title = modalText;
-
         setLocalStorage(tasks);
         setTodos(tasks);
     }
@@ -101,7 +100,7 @@ function ToDoList() {
     }
 
     return (
-        <div>
+        <main>
             <div className="container">
                 <div className="row justify-content-center mt-3">
                     <div className="col-md-6 gy-2">
@@ -162,7 +161,7 @@ function ToDoList() {
                         <div className="modal-body">
                             <form>
                                 <div className="mb-3">
-                                    <textarea className="form-control" defaultValue={modalText} onChange={e => setModalText(e.target.value)} />
+                                    <textarea className="form-control" value={modalText} onChange={e => setModalText(e.target.value)} />
                                 </div>
                             </form>
                         </div>
@@ -173,7 +172,7 @@ function ToDoList() {
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     );
 }
 
