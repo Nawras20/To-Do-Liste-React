@@ -1,7 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import React, { useState, useEffect, useRef } from 'react';
 import './ToDoList.css';
-import { createElement } from 'react';
 
 function ToDoList() {
     var lsTodos = getLocalStorage();
@@ -63,7 +62,7 @@ function ToDoList() {
             setIsMessageVisible(false);
         }, 2000);
     }
-    
+
     function checkboxChanged(e) {
         var tasks = getLocalStorage();
 
