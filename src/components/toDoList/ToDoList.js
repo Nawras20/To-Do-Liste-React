@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { createRoot } from 'react-dom/client'
+import React, { useState, useEffect, useRef } from 'react';
 import './ToDoList.css';
+import { createElement } from 'react';
 
 function ToDoList() {
     var lsTodos = getLocalStorage();
@@ -7,7 +9,9 @@ function ToDoList() {
     var [newTaskValue, setNewTaskValue] = useState('')
     var [selectedIndexToEdit, setSelectedIndexToEdit] = useState('');
     var [modalText, setModalText] = useState('');
+    const [isMessageVisible, setIsMessageVisible] = useState(false);
     var btnDeleteAllDisabled = false;
+    const editModalRef = useRef();
 
     if (lsTodos === null) {
         lsTodos = [];
@@ -19,9 +23,8 @@ function ToDoList() {
     }
 
     useEffect(() => {
-        const editModal = document.getElementById('editModal');
-        if (editModal) {
-            editModal.addEventListener('show.bs.modal', event => {
+        if (editModalRef) {
+            editModalRef.current.addEventListener('show.bs.modal', event => {
                 const button = event.relatedTarget;
 
                 const index = button.getAttribute('id');
@@ -54,18 +57,13 @@ function ToDoList() {
     }
 
     function showMessage() {
-        var div = document.createElement("div");
-        div.setAttribute("class", "alert alert-success");
-        div.textContent = "Neue Aufgabe wurde hinzugefügt.";
-
-        const message = document.getElementById("message");
-        message.appendChild(div);
+        setIsMessageVisible(true);
 
         setTimeout(function () {
-            message.removeChild(message.firstElementChild);
+            setIsMessageVisible(false);
         }, 2000);
     }
-
+    
     function checkboxChanged(e) {
         var tasks = getLocalStorage();
 
@@ -115,6 +113,11 @@ function ToDoList() {
                         {todos.length == 0 &&
                             <div className="alert alert-warning"> Keine Aufgaben verfügbar! </div>
                         }
+                        {isMessageVisible &&
+                            <div className='alert alert-success'>
+                                Neue Aufgabe wurde hinzugefügt.
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className="row justify-content-center mt-3">
@@ -151,7 +154,7 @@ function ToDoList() {
                 </div>
             </div>
 
-            <div className="modal fade" id="editModal" tabIndex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div className="modal fade" id="editModal" tabIndex="-1" aria-labelledby="editModalLabel" aria-hidden="true" ref={editModalRef}>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
