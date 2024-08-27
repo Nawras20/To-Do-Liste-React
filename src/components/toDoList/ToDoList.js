@@ -3,8 +3,9 @@ import './ToDoList.css';
 
 function ToDoList() {
     var lsTodos = getLocalStorage();
-    var [todos, setTodos] = useState(lsTodos)
-    var [newTaskValue, setNewTaskValue] = useState('')
+    var [todos, setTodos] = useState(lsTodos);
+    var [newTaskValue, setNewTaskValue] = useState('');
+    const [checkedTask, setcheckedTask] = useState();
     var [selectedIndexToEdit, setSelectedIndexToEdit] = useState('');
     var [modalText, setModalText] = useState('');
     const [isMessageVisible, setIsMessageVisible] = useState(false);
@@ -124,10 +125,7 @@ function ToDoList() {
                             {todos.map((todo, index) => (
                                 <li key={index} id={"Todo-" + index} className="row list-group-item d-flex justify-content-between align-items-center">
                                     <div className="col-lg-9 text-start">
-                                        {todo.done
-                                            ? <input id={index} type="checkbox" className="form-check-input me-1" onChange={checkboxChanged} checked></input>
-                                            : <input id={index} type="checkbox" className="form-check-input me-1" onChange={checkboxChanged}></input>
-                                        }
+                                        <input id={index} type="checkbox" className="form-check-input me-1" onChange={checkboxChanged} defaultChecked={todo.done}></input>
                                         <label className="form-check-label" htmlFor={index}>
                                             {todo.title}
                                         </label>
